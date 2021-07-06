@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class Board extends StatelessWidget {
   Function tapFunc;
   List label;
   bool end;
 
-  Board(this.tapFunc, this.label, this.end);
+  Board(this.tapFunc, this.label, this.end,);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +28,10 @@ class Board extends StatelessWidget {
           },
           child: Container(
             decoration:
-                BoxDecoration(border: Border.all(color: Color(0xff73CDD6))),
+                BoxDecoration(
+                    border: Border.all(color: Color(0xff73CDD6)),
+                  color: Colors.white,
+                ),
             height: 32.1,
             width: 32.6,
             child: Center(
@@ -43,8 +45,6 @@ class Board extends StatelessWidget {
       }
       col.add(Row(children: r));
     }
-    return SingleChildScrollView(
-      child: Column(children: col),
-    );
+    return Column(children: col);
   }
 }

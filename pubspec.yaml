@@ -30,6 +30,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts: ^2.1.0
   dotted_border: ^2.0.0
+  audioplayers: ^0.19.1
+
 
   #get
   get: ^4.1.4
@@ -56,6 +58,9 @@ flutter:
     - assets/image/avatar.png
     - assets/image/friend.png
     - assets/image/search_form.png
+    - assets/audio/x.wav
+    - assets/audio/o.wav
+    - assets/audio/victory.wav
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -1,3 +1,4 @@
+import 'package:caro_flutter/src/until/audio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,7 +12,7 @@ class GameController extends GetxController {
   int filledBoxes = 0;
   int countRow, countCol, countDia1, countDia2 = 0;
   int col = 12;
-  int row = 12;
+  int row = 18;
   bool blockedHead, blockedTail = false;
   List label = [
     List.generate(12, (_) => ''),
@@ -69,7 +70,7 @@ class GameController extends GetxController {
     super.onReady();
   }
 
-  void tapFunc(int i, int j) {
+  void tapFunc(int i, int j) async {
     if (label[i][j] != '') {
       print('Move did exist!');
       return;
@@ -78,11 +79,13 @@ class GameController extends GetxController {
       filledBoxes += 1;
       xTurn = !xTurn;
       checkWinner(i, j, 'O');
+      await Audio.playAsset(AudioType.o);
     } else if (!xTurn && label[i][j] == '') {
       label[i][j] = 'X';
       filledBoxes += 1;
       xTurn = !xTurn;
       checkWinner(i, j, 'X');
+      await Audio.playAsset(AudioType.x);
     }
   }
 
@@ -196,7 +199,7 @@ class GameController extends GetxController {
     end = !end;
   }
 
-  void showWinner() {
+  void showWinner() async {
     Get.defaultDialog(
         barrierDismissible: false,
         title: xTurn ? message = 'Player X Win!' : message = 'Player O Win!',
@@ -213,6 +216,7 @@ class GameController extends GetxController {
                 child: Text('Play again'))
           ],
         ));
+    await Audio.playAsset(AudioType.victory);
     xTurn ? oScore += 1 : xScore += 1;
     end = !end;
   }
