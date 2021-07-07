@@ -12,7 +12,7 @@ class DotWidget extends StatelessWidget {
     this.totalWidth = 325,
     this.dashWidth = 10,
     this.emptyWidth = 5,
-    this.dashHeight = 0.5,
+    this.dashHeight = 2,
     this.dashColor = Colors.black,
     Key key,
   }) : super(key: key);

@@ -95,7 +95,10 @@ class FriendPage extends GetView<FriendController>{
                                       ),
                                     ],
                                   ),
-                                  Image.asset('assets/image/option.png', height: 50,)
+                                  Bouncing(
+                                    onPress: (){},
+                                      child: Image.asset('assets/image/option.png', height: 50,)
+                                  )
                                 ],
                               ),
                               SizedBox(height: 15,),

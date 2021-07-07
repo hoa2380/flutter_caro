@@ -8,8 +8,6 @@ class GamePage extends GetView<GameController> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        extendBodyBehindAppBar: true,
-        extendBody: true,
         body: GetX<GameController>(builder: (_) {
           return Container(
             color: Color(0xff73CDD6),
@@ -24,7 +22,12 @@ class GamePage extends GetView<GameController> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Board(controller.tapFunc, controller.label, controller.end,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Board(controller.tapFunc, controller.label, controller.end,),
+                          ],
+                        ),
                       ],
                     ),
                   ),
@@ -35,3 +38,6 @@ class GamePage extends GetView<GameController> {
     );
   }
 }
+
+
+

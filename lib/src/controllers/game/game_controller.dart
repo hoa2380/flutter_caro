@@ -1,11 +1,10 @@
-import 'package:caro_flutter/src/until/audio.dart';
+import 'package:caro_flutter/src/services/audio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class GameController extends GetxController {
   final _oTurn = false.obs;
-  String message = '';
   int xScore = 0;
   int oScore = 0;
   final _end = false.obs;
@@ -195,34 +194,66 @@ class GameController extends GetxController {
   }
 
   void showDraw() {
-    message = 'Draw';
+    showDialog(
+      context: Get.context,
+      builder: (_) {
+        return AlertDialog(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            content: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Draw',
+                  style: TextStyle(fontSize: 50, color: Color(0xff73CDD6), fontWeight: FontWeight.bold, fontFamily: 'KaushanScript',),
+                  textAlign: TextAlign.center,
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      restart();
+                      Get.back();
+                    },
+                    child: Text('Play again'))
+              ],
+            )
+        );
+      },
+    );
     end = !end;
   }
 
   void showWinner() async {
-    Get.defaultDialog(
-        barrierDismissible: false,
-        title: xTurn ? message = 'Player X Win!' : message = 'Player O Win!',
-        titleStyle: TextStyle(
-            fontSize: 56, color: xTurn ? Color(0xffEA702B) : Color(0xffC3272E)
-        ),
-        content: Column(
-          children: [
-            ElevatedButton(
-                onPressed: () {
-                  restart();
-                  Get.back();
-                },
-                child: Text('Play again'))
-          ],
-        ));
-    await Audio.playAsset(AudioType.victory);
+    showDialog(
+      context: Get.context,
+      builder: (_) {
+        return AlertDialog(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          content: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                xTurn ? 'Player X Win!': 'Player O Win!',
+                style: TextStyle(fontSize: 50, color: Color(0xff73CDD6), fontWeight: FontWeight.bold, fontFamily: 'KaushanScript',),
+                textAlign: TextAlign.center,
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    restart();
+                    Get.back();
+                  },
+                  child: Text('Play again'))
+            ],
+          )
+        );
+      },
+    );
+    // await Audio.playAsset(AudioType.victory);
     xTurn ? oScore += 1 : xScore += 1;
     end = !end;
   }
 
   void restart() {
-    message = '';
     xTurn = false;
     end = false;
     filledBoxes = 0;
@@ -236,7 +267,6 @@ class GameController extends GetxController {
   void reload() {
     xScore = 0;
     oScore = 0;
-    message = '';
     end = false;
     xTurn = false;
     filledBoxes = 0;

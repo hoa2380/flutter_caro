@@ -46,8 +46,8 @@ class Score extends StatelessWidget {
                             children: [
                               Image.asset('assets/image/x.png', height: 40,),
                               Container(
-                                height: 30,
-                                width: 30,
+                                height: 35,
+                                width: 35,
                                 decoration: BoxDecoration(
                                   color: Colors.blue,
                                   shape: BoxShape.circle
@@ -69,8 +69,8 @@ class Score extends StatelessWidget {
                             children: [
                               Image.asset('assets/image/o.png', height: 40,),
                               Container(
-                                height: 30,
-                                width: 30,
+                                height: 35,
+                                width: 35,
                                 decoration: BoxDecoration(
                                     color: Colors.red,
                                     shape: BoxShape.circle

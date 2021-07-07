@@ -10,6 +10,10 @@ import 'package:get/get.dart';
 class HomePage extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     SystemChrome.setEnabledSystemUIOverlays([]);
     return SafeArea(
       child: Scaffold(
