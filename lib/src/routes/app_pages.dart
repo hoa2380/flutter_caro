@@ -21,5 +21,6 @@ abstract class AppPages {
       page: () => FriendPage(),
       binding: FriendBinding(),
     ),
+
   ];
 }

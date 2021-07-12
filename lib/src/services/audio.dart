@@ -9,7 +9,9 @@ class Audio {
     await player.loadAll([
       'audio/x.wav',
       'audio/o.wav',
-      'audio/victory.wav'
+      'audio/victory.wav',
+      'audio/audio_bg.wav',
+      'audio/xo.wav',
     ]);
   }
 
@@ -17,14 +19,15 @@ class Audio {
     player.play('audio/${describeEnum(audioType)}.wav');
   }
 
-  // static play() async {
-  //   AudioPlayer player = AudioPlayer();
-  //   await player.play('assets/audio/swap.wav', isLocal: true);
-  // }
+  static play() async {
+    AudioPlayer player = AudioPlayer();
+    await player.play('assets/audio/audio_bg.wav', isLocal: true);
+  }
 }
 
 enum AudioType {
   x,
   o,
   victory,
+  xo,
 }

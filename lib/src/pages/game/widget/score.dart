@@ -36,6 +36,11 @@ class Score extends StatelessWidget {
                         style: TextStyle(
                           color: Color(0xffE86F2A), fontSize: 20, fontWeight: FontWeight.bold, fontFamily: 'KaushanScript',
                         )
+                      ),
+                      Container(
+                        height: 5,
+                        width: 70,
+                        color: xTurn ? Colors.transparent : Colors.amberAccent,
                       )
                     ],
                   ),
@@ -97,6 +102,11 @@ class Score extends StatelessWidget {
                         style: TextStyle(
                             color: Color(0xffE86F2A), fontSize: 20, fontWeight: FontWeight.bold, fontFamily: 'KaushanScript'
                         ),
+                      ),
+                      Container(
+                        height: 5,
+                        width: 70,
+                        color: xTurn ? Colors.amberAccent : Colors.transparent,
                       )
                     ],
                   ),

@@ -1,10 +1,11 @@
 import 'package:caro_flutter/src/services/audio.dart';
+import 'package:caro_flutter/src/widgets/bouncing.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class GameController extends GetxController {
-  final _oTurn = false.obs;
+  final _turnPlayer = false.obs;
   int xScore = 0;
   int oScore = 0;
   final _end = false.obs;
@@ -34,10 +35,10 @@ class GameController extends GetxController {
     List.generate(12, (_) => ''),
   ];
 
-  get xTurn => _oTurn.value;
+  get turnPlayer => _turnPlayer.value;
 
-  set xTurn(value) {
-    _oTurn.value = value;
+  set turnPlayer(value) {
+    _turnPlayer.value = value;
   }
 
   get end => _end.value;
@@ -52,18 +53,21 @@ class GameController extends GetxController {
   }
 
   @override
-  void onReady() {
+  void onReady() async {
     showDialog(
       context: Get.context,
       builder: (_) {
         return AlertDialog(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          content: Image.asset('assets/image/Untitled-1.png', height: 120,),
+          content: Image.asset(
+            'assets/image/Untitled-1.png',
+            height: 120,
+          ),
         );
       },
     );
-    Future.delayed(Duration(milliseconds: 1000), () {
+    Future.delayed(Duration(milliseconds: 700), () {
       Get.back();
     });
     super.onReady();
@@ -73,18 +77,18 @@ class GameController extends GetxController {
     if (label[i][j] != '') {
       print('Move did exist!');
       return;
-    } else if (xTurn && label[i][j] == '') {
+    } else if (turnPlayer && label[i][j] == '') {
+      await Audio.playAsset(AudioType.xo);
       label[i][j] = 'O';
       filledBoxes += 1;
-      xTurn = !xTurn;
+      turnPlayer = !turnPlayer;
       checkWinner(i, j, 'O');
-      await Audio.playAsset(AudioType.o);
-    } else if (!xTurn && label[i][j] == '') {
+    } else if (!turnPlayer && label[i][j] == '') {
+      await Audio.playAsset(AudioType.xo);
       label[i][j] = 'X';
       filledBoxes += 1;
-      xTurn = !xTurn;
+      turnPlayer = !turnPlayer;
       checkWinner(i, j, 'X');
-      await Audio.playAsset(AudioType.x);
     }
   }
 
@@ -188,73 +192,25 @@ class GameController extends GetxController {
     if (countDia2 >= 5 && !(blockedTail && blockedHead)) return showWinner();
 
     // Draw
-    if (filledBoxes == 144) {
+    if (filledBoxes == 216) {
       showDraw();
     }
   }
 
   void showDraw() {
-    showDialog(
-      context: Get.context,
-      builder: (_) {
-        return AlertDialog(
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            content: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Draw',
-                  style: TextStyle(fontSize: 50, color: Color(0xff73CDD6), fontWeight: FontWeight.bold, fontFamily: 'KaushanScript',),
-                  textAlign: TextAlign.center,
-                ),
-                ElevatedButton(
-                    onPressed: () {
-                      restart();
-                      Get.back();
-                    },
-                    child: Text('Play again'))
-              ],
-            )
-        );
-      },
-    );
+    dialogResult('Draw', 'Draw');
     end = !end;
   }
 
   void showWinner() async {
-    showDialog(
-      context: Get.context,
-      builder: (_) {
-        return AlertDialog(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          content: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                xTurn ? 'Player X Win!': 'Player O Win!',
-                style: TextStyle(fontSize: 50, color: Color(0xff73CDD6), fontWeight: FontWeight.bold, fontFamily: 'KaushanScript',),
-                textAlign: TextAlign.center,
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    restart();
-                    Get.back();
-                  },
-                  child: Text('Play again'))
-            ],
-          )
-        );
-      },
-    );
+    dialogResult('Player X Win', 'Player O Win');
     // await Audio.playAsset(AudioType.victory);
-    xTurn ? oScore += 1 : xScore += 1;
+    turnPlayer ? oScore += 1 : xScore += 1;
     end = !end;
   }
 
   void restart() {
-    xTurn = false;
+    turnPlayer = false;
     end = false;
     filledBoxes = 0;
     for (int i = 0; i < label.length; i++) {
@@ -268,7 +224,7 @@ class GameController extends GetxController {
     xScore = 0;
     oScore = 0;
     end = false;
-    xTurn = false;
+    turnPlayer = false;
     filledBoxes = 0;
     for (int i = 0; i < label.length; i++) {
       for (int j = 0; j < label[i].length; j++) {
@@ -277,6 +233,81 @@ class GameController extends GetxController {
     }
   }
 
-//Play with Bot
-
+  dialogResult(String playerX, String playerO) {
+    showDialog(
+      context: Get.context,
+      builder: (_) {
+        return AlertDialog(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            content: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  turnPlayer ? playerX : playerO,
+                  style: TextStyle(
+                    fontSize: 50,
+                    color: Color(0xff73CDD6),
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'KaushanScript',
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Bouncing(
+                        onPress: () {
+                          restart();
+                          Get.back();
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: Color(0xff73CDD6)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Text(
+                              'Play Again',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'KaushanScript',
+                              ),
+                            ),
+                          ),
+                        )),
+                    Bouncing(
+                        onPress: () {
+                          reload();
+                          Get.back();
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: Color(0xff73CDD6)),
+                          child: Padding(
+                            padding: EdgeInsets.all(10),
+                            child: Text(
+                              'Reset Score',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'KaushanScript',
+                              ),
+                            ),
+                          ),
+                        ))
+                  ],
+                )
+              ],
+            ));
+      },
+    );
+  }
 }

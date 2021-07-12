@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 void main() async {
+  // WidgetsFlutterBinding.ensureInitialized();
+  // await Audio.init();
+  // await Audio.play();
   runApp(GetMaterialApp(
     title: 'Caro',
     debugShowCheckedModeBanner: false,

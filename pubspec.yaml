@@ -61,6 +61,8 @@ flutter:
     - assets/audio/x.wav
     - assets/audio/o.wav
     - assets/audio/victory.wav
+    - assets/audio/audio_bg.wav
+    - assets/audio/xo.wav
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
