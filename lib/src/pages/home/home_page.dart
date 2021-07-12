@@ -34,8 +34,8 @@ class HomePage extends GetView<HomeController> {
                     width: 300,
                   )),
               Bouncing(
-                  onPress: () async {
-                    Get.toNamed(Routes.game);
+                  onPress: () {
+                    Get.toNamed(Routes.computer);
                   },
                   child: Image.asset(
                     'assets/image/practice.png',

@@ -21,6 +21,11 @@ abstract class AppPages {
       page: () => FriendPage(),
       binding: FriendBinding(),
     ),
+    GetPage(
+      name: Routes.computer,
+      page: () => VsComputerPage(),
+      binding: VsComputerBinding(),
+    ),
 
   ];
 }
