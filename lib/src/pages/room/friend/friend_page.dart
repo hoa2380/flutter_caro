@@ -1,5 +1,5 @@
-import 'package:caro_flutter/src/controllers/friend/friend_controller.dart';
-import 'package:caro_flutter/src/pages/friend/widget/dot_widget.dart';
+import 'package:caro_flutter/src/controllers/controllers.dart';
+import 'package:caro_flutter/src/pages/room/friend/widget/dot_widget.dart';
 import 'package:caro_flutter/src/widgets/bouncing.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

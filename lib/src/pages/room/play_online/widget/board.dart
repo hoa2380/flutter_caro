@@ -30,8 +30,8 @@ class Board extends StatelessWidget {
                     border: Border.all(color: Color(0xff73CDD6)),
                   color: Colors.white,
                 ),
-            height: 33,
-            width: 33,
+            height: 32,
+            width: 32,
             child: Center(
                 child: label[i][j] == '' ? SizedBox() :
                   Image.asset(

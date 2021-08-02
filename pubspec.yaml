@@ -31,6 +31,10 @@ dependencies:
   google_fonts: ^2.1.0
   dotted_border: ^2.0.0
   audioplayers: ^0.19.1
+  socket_io_client: ^2.0.0-beta.4-nullsafety.0
+  dio: ^4.0.0
+  shared_preferences: ^2.0.6
+  cached_network_image: ^3.1.0
 
 
   #get
@@ -58,6 +62,10 @@ flutter:
     - assets/image/avatar.png
     - assets/image/friend.png
     - assets/image/search_form.png
+    - assets/image/choose_table.png
+    - assets/image/play.png
+    - assets/image/table.png
+    - assets/image/icon-player.png
     - assets/audio/x.wav
     - assets/audio/o.wav
     - assets/audio/victory.wav
@@ -79,6 +87,12 @@ flutter:
     - family: KaushanScript
       fonts:
         - asset: assets/font/KaushanScript-Regular.ttf
+          weight: 700
+          style: normal
+
+    - family: Riangriung
+      fonts:
+        - asset: assets/font/Riangriung.otf
           weight: 700
           style: normal
   #   - family: Trajan Pro

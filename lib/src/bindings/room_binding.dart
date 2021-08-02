@@ -1,10 +1,10 @@
 import 'package:caro_flutter/src/controllers/controllers.dart';
 import 'package:get/get.dart';
 
-class FriendBinding implements Bindings {
+class RoomBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<FriendController>(() => FriendController());
+    Get.lazyPut<RoomController>(() => RoomController());
   }
 
 }
